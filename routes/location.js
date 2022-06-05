@@ -3,7 +3,8 @@ const {
   updateLocation, 
   getAllLocations, 
   deleteLocation,
-  getLocationById
+  getLocationById,
+  getThreeRandomLocations
 } = require('../controllers/location-controller');
 const express = require('express');
 const router = express.Router();
@@ -11,6 +12,7 @@ const router = express.Router();
 router.post('/', createLocation);
 router.put('/:id', updateLocation);
 router.get('/', getAllLocations);
+router.get('/random', getThreeRandomLocations);
 router.get('/:id', getLocationById);
 router.delete('/:id', deleteLocation);
 

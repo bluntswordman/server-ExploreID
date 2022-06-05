@@ -1,9 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
   const Location = sequelize.define('Location', {
-    author: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -11,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.STRING,
     },
-    Image: {
+    image: {
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -22,15 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     lng: {
       type: DataTypes.DOUBLE,
       allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     }
   });
-
-  // Location.associate = models => {
-  //   Location.hasMany(models.Event, {
-  //     foreignKey: 'locationId',
-  //     as: 'events'
-  //   });
-  // };
 
   return Location;
 }

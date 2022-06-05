@@ -1,16 +1,16 @@
 const { Location } = require('../models');
 
 const createLocation = async (req, res) => {
-  const { author, title, description, lat, lng } = req.body;
-  const image = req.file ? req.file.path : null;
+  const { title, description, lat, lng, name } = req.body;
+  const images = req.file;
   try {
     const location = await Location.create({
-      author: author || 'Anonymous',
       title: title || 'Untitled',
       description: description || 'No description',
-      Image: image || 'no-image.png',
+      Image: images || 'no-image.png',
       lat: lat || 0,
-      lng: lng || 0
+      lng: lng || 0,
+      name: name || 'Anonymous',
     });
     res.status(201).json({msg: 'Location created', location});
   } catch (error) {
@@ -19,16 +19,17 @@ const createLocation = async (req, res) => {
 };
 
 const updateLocation = async (req, res) => {
-  const { author, title, description, image, lat, lng } = req.body;
+  const { title, description, lat, lng, name } = req.body;
+  const image = req.file;
 
   try {
     await Location.update({
-      author: author || Location.author,
       title: title || Location.title,
       description: description || Location.description,
-      Image: image,
+      image: image,
       lat: lat || Location.lat,
-      lng: lng || Location.lng
+      lng: lng || Location.lng,
+      name: name || Location.name
     }, {
       where: req.params
     });
@@ -41,7 +42,7 @@ const updateLocation = async (req, res) => {
 const getAllLocations = async (req, res) => {
   try {
     const locations = await Location.findAll({
-      attributes: ['author', 'title', 'description', 'image', 'lat', 'lng']
+      attributes: ['id', 'title', 'description', 'image', 'lat', 'lng', 'name', 'UserId'],
     });
     res.status(200).json(locations);
   } catch (error) {
@@ -52,10 +53,22 @@ const getAllLocations = async (req, res) => {
 const getLocationById = async (req, res) => {
   try {
     const location = await Location.findOne({
-      attributes: ['author', 'title', 'description', 'image', 'lat', 'lng'],
+      attributes: ['id', 'title', 'description', 'image', 'lat', 'lng', 'name', 'UserId'],
       where: req.params
     });
     res.status(200).json(location);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const getThreeRandomLocations = async (req, res) => {
+  try {
+    const locations = await Location.findAll({
+      attributes: ['id', 'title', 'description', 'image', 'lat', 'lng', 'name', 'UserId'],
+    });
+    const randomLocations = locations.sort(() => Math.random() - 0.5).slice(0, 3);
+    res.status(200).json(randomLocations);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -78,5 +91,6 @@ module.exports = {
   updateLocation,
   getAllLocations,
   getLocationById,
+  getThreeRandomLocations,
   deleteLocation
 };
