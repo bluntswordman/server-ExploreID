@@ -129,9 +129,39 @@ const logOut = async (req, res) => {
   return res.status(200).json({ msg: 'Logged out' });
 };
 
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { username, name } = req.body;
+
+  try {
+    const user = await User.findOne({
+      where: {
+        id: id,
+      },
+    });
+    
+    if (!user) return res.status(400).json({ msg: 'User does not exist' });
+
+    await User.update({
+      username: username || user.username,
+      name: name || user.name,
+    }, {
+      where: {
+        id: id,
+      },
+    });
+
+    res.json({ msg: 'User updated' });
+  }
+  catch (error) {
+    res.status(400).json({ msg: 'User does not exist' });
+  }
+};
+
 module.exports = {
   userRegister,
   userLogin,
   getUserbyId,
-  logOut
+  logOut,
+  updateUser,
 };

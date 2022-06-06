@@ -7,7 +7,8 @@ const path = require('path');
 const db = require('./models');
 const routerLocation = require('./routes/location');
 const routerUser = require('./routes/user');
-// const multer = require('./controllers/image-upload');
+const routerToken = require('./routes/token');
+const multer = require('./controllers/image-upload');
 const app = express();
 const port = process.env.PORT;
 
@@ -18,12 +19,13 @@ app.use(cors(
     credentials: true,
   }
 ));
-// app.use(multer.single('images'));
+app.use(multer.single('images'));
 app.use(cookieParser());
 
-// app.use('/v1/images', express.static(path.resolve(__dirname, 'images')));
+app.use('/v1/images', express.static(path.resolve(__dirname, 'images')));
 app.use('/v1/user', routerUser);
 app.use('/v1/location', routerLocation);
+app.use('/v1/token', routerToken);
 
 db.sequelize.sync().then(() => {
   app.listen(port, () => {
