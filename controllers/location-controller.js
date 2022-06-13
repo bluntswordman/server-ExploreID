@@ -1,16 +1,20 @@
 const { Location } = require('../models');
 
 const createLocation = async (req, res) => {
-  const { title, description, lat, lng, name } = req.body;
-  const images = req.file;
+  const { title, description, lat, lng, name, userId } = req.body;
+  const image = req.file.path;
+  console.log(image);
+  console.log(title, description, lat, lng, name, userId);
+    
   try {
     const location = await Location.create({
       title: title || 'Untitled',
       description: description || 'No description',
-      Image: images || 'no-image.png',
+      image: image || null,
       lat: lat || 0,
       lng: lng || 0,
       name: name || 'Anonymous',
+      userId: userId || 'null'
     });
     res.status(201).json({msg: 'Location created', location});
   } catch (error) {
@@ -49,6 +53,20 @@ const getAllLocations = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+const getAllLocationsByUserId = async (req, res) => {
+  try {
+    const locations = await Location.findAll({
+      attributes: ['id', 'title', 'description', 'image', 'lat', 'lng', 'name', 'UserId'],
+      where: {
+        UserId: req.params.userId
+      }
+    });
+    res.status(200).json(locations);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
 
 const getLocationById = async (req, res) => {
   try {
@@ -91,6 +109,7 @@ module.exports = {
   updateLocation,
   getAllLocations,
   getLocationById,
+  getAllLocationsByUserId,
   getThreeRandomLocations,
   deleteLocation
 };

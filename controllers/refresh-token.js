@@ -3,19 +3,19 @@ const jwt = require('jsonwebtoken');
 
 const refreshToken = async (req, res) => {
   try {
-    const refreshToken = req.cookies.refresh_Token;
+    const getRefreshToken = req.cookies.refresh_Token;
     
-    if (!refreshToken) return res.status(400).json({ msg: 'No refresh token provided' });
+    if (!getRefreshToken) return res.status(400).json({ msg: 'No refresh token provided' });
 
     const user = await User.findOne({
       where: {
-        refresh_token: refreshToken,
+        refresh_token: getRefreshToken,
       },
     });
 
     if (!user) return res.status(400).json({ msg: 'Invalid refresh token' });
 
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err, decoded) => {
+    jwt.verify(getRefreshToken, process.env.REFRESH_TOKEN, (err, decoded) => {
       if (err) return res.status(400).json({ msg: 'Invalid refresh token' });
 
       const userId = user.id;
