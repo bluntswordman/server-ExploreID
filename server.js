@@ -9,6 +9,7 @@ const db = require('./models');
 const routerLocation = require('./routes/location');
 const routerUser = require('./routes/user');
 const routerToken = require('./routes/token');
+const routerComment = require('./routes/comment');
 const app = express();
 const port = process.env.PORT;
 
@@ -27,6 +28,7 @@ app.use('/v1/images', express.static(path.join(__dirname, 'images')));
 app.use('/v1/user', routerUser);
 app.use('/v1/location', routerLocation);
 app.use('/v1/token', routerToken);
+app.use('/v1/comment', routerComment);
 
 db.sequelize.sync().then(() => {
   app.listen(port, () => {
