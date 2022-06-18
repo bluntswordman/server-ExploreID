@@ -22,10 +22,11 @@
     "set-cookie": "^0.0.4"
   },
   "engines": {
-    "node": "14.x"
+    "node": "16.15.1"
   },
   "scripts": {
     "start": "node server.js",
-    "dev-start": "nodemon server.js"
+    "dev-start": "nodemon server.js",
+    "build": "node server.js"
   }
 }
