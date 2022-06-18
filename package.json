@@ -21,7 +21,11 @@
     "sequelize-cli": "^6.4.1",
     "set-cookie": "^0.0.4"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev-start": "nodemon server.js"
   }
 }
