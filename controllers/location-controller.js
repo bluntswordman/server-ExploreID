@@ -46,7 +46,7 @@ const updateLocation = async (req, res) => {
 const getAllLocations = async (req, res) => {
   try {
     const locations = await Location.findAll({
-      attributes: ['id', 'title', 'description', 'image', 'lat', 'lng', 'name', 'UserId'],
+      attributes: ['id', 'title', 'description', 'image', 'lat', 'lng', 'name', 'userId'],
     });
     res.status(200).json(locations);
   } catch (error) {
@@ -80,17 +80,17 @@ const getLocationById = async (req, res) => {
   }
 };
 
-const getThreeRandomLocations = async (req, res) => {
+const getRandomLocation = async (req, res) => {
   try {
     const locations = await Location.findAll({
-      attributes: ['id', 'title', 'description', 'image', 'lat', 'lng', 'name', 'UserId'],
+      attributes: ['title', 'image', 'name', ],
     });
-    const randomLocations = locations.sort(() => Math.random() - 0.5).slice(0, 3);
-    res.status(200).json(randomLocations);
+    const randomLocation = locations.sort(() => Math.random() - 0.5).slice(0, 5);
+    res.status(200).json(randomLocation);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-};
+}
 
 const deleteLocation = async (req, res) => {
   const { id } = req.params;
@@ -110,6 +110,6 @@ module.exports = {
   getAllLocations,
   getLocationById,
   getAllLocationsByUserId,
-  getThreeRandomLocations,
+  getRandomLocation,
   deleteLocation
 };

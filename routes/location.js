@@ -4,7 +4,7 @@ const {
   getAllLocations, 
   deleteLocation,
   getLocationById,
-  getThreeRandomLocations,
+  getRandomLocation ,
   getAllLocationsByUserId
 } = require('../controllers/location-controller');
 const verifyToken  = require('../middleware/verifyToken');
@@ -42,7 +42,7 @@ const upload = multer({ storage: storage });
 router.post('/', verifyToken, upload.single('photo'), createLocation);
 
 router.get('/', getAllLocations);
-router.get('/random', getThreeRandomLocations);
+router.get('/random', getRandomLocation);
 router.get('/locself/:userId', getAllLocationsByUserId);
 router.get('/:id', getLocationById);
 router.put('/:id', verifyToken, updateLocation);

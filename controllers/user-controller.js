@@ -7,17 +7,33 @@ const userRegister = async (req, res) => {
   const { username, name, password, confirmPassword } = req.body;
 
   if (!username || !name || !password || !confirmPassword) {
-    return res.status(400).json({ msg: 'Please fill out all fields' });
+    return res.status(400).json({ msg: 'Silakan isi semua kolom' });
   }
 
   if (password !== confirmPassword) {
-    return res.status(400).json({ msg: 'Passwords do not match' });
+    return res.status(400).json({ msg: 'Passwords & confirm password tidak sama' });
   }
 
   const id = cuid();
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
+    const trueUsername = await User.findOne({
+      where: {
+        username: username
+      }
+    })
+
+    const trueName = await User.findOne({
+      where: {
+        name: name
+      }
+    })
+
+    if (trueUsername) return res.status(400).json({ msg: 'Username sudah ada' });
+
+    if (trueName) return res.status(400).json({ msg: 'Nama sudah ada' });
+
     await User.create({
       id: id,
       username: username,
@@ -25,7 +41,7 @@ const userRegister = async (req, res) => {
       password: hashedPassword,
     });
 
-    res.status(201).json({ msg: 'User created'});
+    res.status(201).json({ msg: 'Berhasil membuat akun'});
   }
   catch (error) {
     res.status(400).json({ error: error.message });
@@ -35,7 +51,7 @@ const userRegister = async (req, res) => {
 const userLogin = async (req, res) => {
   const { username, password } = req.body;
 
-  if (!username || !password) return res.status(400).json({ msg: 'Please fill out all fields' });
+  if (!username || !password) return res.status(400).json({ msg: 'Silakan isi semua kolom' });
 
   try {
     const user = await User.findOne({
@@ -44,11 +60,11 @@ const userLogin = async (req, res) => {
       },
     });
 
-    if (!user) return res.status(400).json({ msg: 'User does not exist' });
+    if (!user) return res.status(400).json({ msg: 'Username tidak ditemukan' });
 
     const isMatch = await bcrypt.compare(password, user.password);
 
-    if (!isMatch) return res.status(400).json({ msg: 'Incorrect password' });
+    if (!isMatch) return res.status(400).json({ msg: 'Password Salah' });
 
     const accessToken = jwt.sign({ 
       id: user.id,
