@@ -85,7 +85,7 @@ const getRandomLocation = async (req, res) => {
     const locations = await Location.findAll({
       attributes: ['title', 'image', 'name', ],
     });
-    const randomLocation = locations.sort(() => Math.random() - 0.5).slice(0, 5);
+    const randomLocation = locations.sort(() => Math.random() - 0.5).slice(0, 8);
     res.status(200).json(randomLocation);
   } catch (error) {
     res.status(400).json({ error: error.message });
