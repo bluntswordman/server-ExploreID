@@ -83,7 +83,7 @@ const getLocationById = async (req, res) => {
 const getRandomLocation = async (req, res) => {
   try {
     const locations = await Location.findAll({
-      attributes: ['title', 'image', 'name', ],
+      attributes: ['title', 'image', 'name', 'id'],
     });
     const randomLocation = locations.sort(() => Math.random() - 0.5).slice(0, 8);
     res.status(200).json(randomLocation);
