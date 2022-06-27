@@ -4,6 +4,9 @@
   </a>
 </div>
 
+## Tentang Aplikasi ##
+Explore ID merupakan website untuk mempromosikan wisata lokal, dengan dibuatnya website ini pengembang berharap agar masyarakat setempat atau wisatawan yang datang lebih bisa bekerja sama untuk mempromosikan wisata lokal.
+
 ## Instalasi & Mejalankan Program
 #### Install Xampp
 ```bash
