@@ -3,8 +3,8 @@ const { Location } = require('../models');
 const createLocation = async (req, res) => {
   const { title, description, lat, lng, name, userId } = req.body;
   const image = req.file.path;
-  console.log(image);
-  console.log(title, description, lat, lng, name, userId);
+  // console.log(image);
+  // console.log(title, description, lat, lng, name, userId);
     
   try {
     const location = await Location.create({

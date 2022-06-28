@@ -15,7 +15,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './images');
+    cb(null, './images/content');
   },
   filename: (req, file, cb) => {
     cb(
@@ -35,12 +35,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// router.post('/', verifyToken, upload.single('photo'), async (req, res) => {
-//   console.log(req.file.path);
-// });
-
 router.post('/', verifyToken, upload.single('photo'), createLocation);
-
 router.get('/', getAllLocations);
 router.get('/random', getRandomLocation);
 router.get('/locself/:userId', getAllLocationsByUserId);

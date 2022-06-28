@@ -1,12 +1,13 @@
 const { Comment } = require('../models');
 
 const createComment = async (req, res) => {
-  const { commentBody, commentAuthor, userId, locationId } = req.body;
+  const { commentBody, commentAuthor, commentAuthorPhoto, userId, locationId } = req.body;
   console.log(commentBody, commentAuthor, userId, locationId);
   try {
     const comment = await Comment.create({
       commentBody: commentBody || 'No comment',
       commentAuthor: commentAuthor || 'Anonymous',
+      commentAuthorPhoto: commentAuthorPhoto || 'default.png',
       userId: userId || 'null',
       locationId: locationId || 'null'
     });

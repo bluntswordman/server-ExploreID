@@ -38,6 +38,7 @@ const userRegister = async (req, res) => {
       id: id,
       username: username,
       name: name,
+      profile_image: 'default.png',
       password: hashedPassword,
     });
 
@@ -108,7 +109,7 @@ const getUserbyId = async (req, res) => {
         id: id,
       },
       attributes: [
-        'id', 'username', 'name', 'createdAt', 'updatedAt'
+        'id', 'username', 'name', 'profile_image', 'createdAt', 'updatedAt'
       ],
     });
 
@@ -174,10 +175,41 @@ const updateUser = async (req, res) => {
   }
 };
 
+const updateUserProfileImage = async (req, res) => {
+  const { id } = req.params;
+  const image = req.file.path;
+
+  console.log(image);
+
+  try {
+    const user = await User.findOne({
+      where: {
+        id: id,
+      },
+    });
+    
+    if (!user) return res.status(400).json({ msg: 'User does not exist' });
+
+    await User.update({
+      profile_image: image || user.profile_image,
+    }, {
+      where: {
+        id: id,
+      },
+    });
+
+    res.json({ msg: 'Images updated' });
+  }
+  catch (error) {
+    res.status(400).json({ msg: 'User does not exist' });
+  }
+}
+
 module.exports = {
   userRegister,
   userLogin,
   getUserbyId,
   logOut,
   updateUser,
+  updateUserProfileImage
 };
