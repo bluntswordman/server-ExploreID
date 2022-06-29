@@ -4,52 +4,75 @@
   </a>
 </div>
 
-## Tentang Aplikasi ##
+## About Application ##
 Explore ID merupakan website untuk mempromosikan wisata lokal, dengan dibuatnya website ini pengembang berharap agar masyarakat setempat atau wisatawan yang datang lebih bisa bekerja sama untuk mempromosikan wisata lokal.
 
-## Instalasi & Mejalankan Program ##
-*Repository <a href="https://github.com/bluntswordman/server-ExploreID">**Client**</a>* 
+## Install & Running Application ##
+*Repository <a href="https://github.com/bluntswordman/Explore-ID">**Client**</a>* 
 #### Install Xampp
 ```bash
   https://www.apachefriends.org/download.html
 ```
-atau
+or
 #### Install MySQL Workbench ####
 ```bash
   https://dev.mysql.com/downloads/workbench/
 ```
-#### Membuat Database ####
-  **Menggunakan CLI**
+#### Create Database ####
+  **Using CLI**
   ```bash
      Open command prompt
   ```
   ```bash
-     mysql -u root -p
+     mysql -u root -p;
   ```
   ```bash
-     CREATE DATABASES "explore_db"
+     CREATE DATABASES explore_db;
   ```
-  **Menggunakan XAMPP**
+  ```bash
+     USE explore_db;
+  ```
+  **Using XAMPP**
   ```bash
      start Xampp Control Panel and check MYSQL + Apache
   ```
   ```bash
      create new database and type name database "explore_db"
   ```
-  **Menggunakan MySQL Workbench**
+  **Using MySQL Workbench**
   ```bash
-     Login to MySQL Workbench
+     login to MySQL Workbench
   ```
   ```bash
-     In the query write CREATE DATABASES "explore_db"
+     CREATE DATABASES explore_db;
   ```
-#### Clone the project ####
+  ```bash
+     USE explore_db;
+  ```
+#### Clone Application ####
   ```bash
     git clone https://github.com/bluntswordman/server-ExploreID.git
   ```
-#### Start the server ####
+#### Running Application ####
   ```bash
     cd server-ExploreID
+  ```
+  ```bash
+    in root create ".env" add :
+    - PORT = 5000
+
+    - DB_USERNAME = root 
+    - DB_NAME = explore_db
+    - DB_PASSWORD = "" || your database password
+
+    - ACCESS_TOKEN = Aoiewrerghj || random string
+    - REFRESH_TOKEN = rutirefsjf || random string
+  ```
+  ```bash
+    in root create folder images
+  ```
+  ```bash
+    in folder images create folder content & profile
   ```
   ```bash
     yarn || npm || pnpm "install"
@@ -57,6 +80,431 @@ atau
   ```bash
     yarn || npm || pnpm "run start-dev"
   ```
+## API Spec ##
+### User Authentication ###
+#### Register ####
+- Method    : POST
+- Endpoint  : `/v1/user`
+- Header :
+    - Content-Type : application/json
+- Body :
+```json 
+  {
+      "username" : "string",
+      "name" : "string",
+      "password" : "string",
+      "confirmPassword" : "string"
+  }
+```
+- Response :
+```json 
+  {
+    "msg" : "Berhasil membuat akun",
+    "status" : 201
+  }
+```
+#### Login ####
+- Method    : POST
+- Endpoint  : `/v1/user/login`
+- Header :
+    - Content-Type : application/json
+- Body :
+```json 
+  {
+    "username" : "string",
+    "password" : "string"
+  }
+```
+- Response :
+```json 
+  {
+    "status" : 200,
+    "data" : {
+      "accessToken" : "string"
+    }
+  }
+```
+#### Token ####
+- Method    : GET
+- Endpoint  : `/v1/token/access`
+- Header :
+    - Content-Type : application/json
+- Response :
+```json 
+  {
+    "status" : 200,
+    "data" : {
+      "accessToken" : "string"
+    }
+  }
+```
+#### Logout ####
+- Method    : DELETE
+- Endpoint  : `/v1/user/logout`
+- auth : 
+```json
+  {
+    "type": "bearer",
+    "bearer": {
+        "key": "token",
+        "type": "string"
+    }
+  }
+```
+- Header :
+    - Content-Type : application/json
+- Response :
+```json 
+  {
+    "status" : 200,
+    "msg" : "Logged out"
+  }
+```
+#### Data User ####
+- Method    : GET
+- Endpoint  : `/v1/user/{userId}`
+- auth : 
+```json
+  {
+    "type": "bearer",
+    "bearer": {
+        "key": "token",
+        "type": "string"
+    }
+  }
+```
+- Header :
+    - Content-Type : application/json
+- Response :
+```json 
+  {
+    "status" : 200,
+    "data" : {
+      "id" : "string, unique",
+      "username" : "string",
+      "name" : "string",
+      "profile_image" : "string",
+      "createdAt" : "date",
+      "updatedAt" : "date"
+    }
+  }
+```
+#### Update Data User ####
+- Method    : PUT
+- Endpoint  : `/v1/user/{userId}`
+- auth : 
+```json
+  {
+    "type": "bearer",
+    "bearer": {
+        "key": "token",
+        "type": "string"
+    }
+  }
+```
+- Header :
+    - Content-Type : application/json
+- Body :
+```json 
+  {
+    "username" : "string",
+    "name" : "string",
+  }
+```
+- Response :
+```json 
+  {
+    "status" : 200,
+    "msg" : "User updated"
+  }
+```
+#### Update Photo User ####
+- Method    : PUT
+- Endpoint  : `/v1/user/updateimage/{userId}`
+- auth : 
+```json
+  {
+    "type": "bearer",
+    "bearer": {
+        "key": "token",
+        "type": "string"
+    }
+  }
+```
+- Header :
+    - Content-Type : multipart/form-data
+- Body :
+```json 
+  {
+    "profile_image" : "file"
+  }
+```
+- Response :
+```json 
+  {
+    "status" : 200,
+    "msg" : "Images updated"
+  }
+```
+### Content ###
+#### Create Content ####
+- Method    : POST
+- Endpoint  : `/v1/location/`
+- auth : 
+```json
+  {
+    "type": "bearer",
+    "bearer": {
+        "key": "token",
+        "type": "string"
+    }
+  }
+```
+- Header :
+    - Content-Type : multipart/form-data
+- Body :
+```json 
+  {
+    "title" : "string",
+    "description" : "string",
+    "image" : "file",
+    "lat" : "double",
+    "lng" : "double",
+  }
+```
+- Response :
+```json 
+  {
+    "status" : 201,
+    "msg" : "Location created",
+    "data" : {
+      "id" : "integer",
+      "title" : "string",
+      "description" : "string",
+      "image" : "string",
+      "lat" : "double",
+      "lng" : "double",
+      "name" : "string",
+      "userId" : "string",
+      "createdAt" : "date",
+      "updatedAt" : "date"
+    }
+  }
+```
+#### Update Content ####
+- Method    : PUT
+- Endpoint  : `/v1/location/{id}`
+- auth : 
+```json
+  {
+    "type": "bearer",
+    "bearer": {
+        "key": "token",
+        "type": "string"
+    }
+  }
+```
+- Header :
+    - Content-Type : multipart/form-data
+- Body :
+```json 
+  {
+    "title" : "string",
+    "description" : "string",
+  }
+```
+- Response :
+```json 
+  {
+    "status" : 200,
+    "msg" : "Location updated",
+  }
+```
+#### Get All Content ####
+- Method    : GET
+- Endpoint  : `/v1/location/`
+- Header :
+    - Content-Type : application/json
+- Response :
+```json 
+  {
+    "status" : 200,
+    "data" : [
+      {
+        "id" : "integer",
+        "title" : "string",
+        "description" : "string",
+        "image" : "string",
+        "lat" : "double",
+        "lng" : "double",
+        "name" : "string",
+        "userId" : "string",
+        "createdAt" : "date",
+        "updatedAt" : "date"
+      }
+    ],
+  }
+```
+#### Get All Content by UserId ####
+- Method    : GET
+- Endpoint  : `/v1/location/locself/{userId}`
+- Header :
+    - Content-Type : application/json
+- Response :
+```json 
+  {
+    "status" : 200,
+    "data" : [
+      {
+        "id" : "integer",
+        "title" : "string",
+        "description" : "string",
+        "image" : "string",
+        "lat" : "double",
+        "lng" : "double",
+        "name" : "string",
+        "userId" : "string",
+        "createdAt" : "date",
+        "updatedAt" : "date"
+      }
+    ],
+  }
+```
+#### Get Content by Id ####
+- Method    : GET
+- Endpoint  : `/v1/location/{id}`
+- Header :
+    - Content-Type : application/json
+- Response :
+```json 
+  {
+    "status" : 200,
+    "data" : {
+      "id" : "integer",
+      "title" : "string",
+      "description" : "string",
+      "image" : "string",
+      "lat" : "double",
+      "lng" : "double",
+      "name" : "string",
+      "userId" : "string",
+      "createdAt" : "date",
+      "updatedAt" : "date"
+    }
+  }
+```
+#### Get Content Random ####
+- Method    : GET
+- Endpoint  : `/v1/location/random`
+- Header :
+    - Content-Type : application/json
+- Response :
+```json 
+  {
+    "status" : 200,
+    "data" : [
+      {
+        "id" : "integer",
+        "title" : "string",
+        "description" : "string",
+        "image" : "string",
+        "lat" : "double",
+        "lng" : "double",
+        "name" : "string",
+        "userId" : "string",
+        "createdAt" : "date",
+        "updatedAt" : "date"
+      }
+    ],
+  }
+```
+#### Delete Content ####
+- Method    : DELETE
+- Endpoint  : `/v1/location/{id}`
+- auth : 
+```json
+  {
+    "type": "bearer",
+    "bearer": {
+        "key": "token",
+        "type": "string"
+    }
+  }
+```
+- Header :
+    - Content-Type : application/json
+- Response :
+```json 
+  {
+    "status" : 200,
+    "msg" : "Location deleted"
+  }
+```
+### Comment Content ###
+#### Create Comment ####
+- Method    : POST
+- Endpoint  : `/v1/comment`
+- auth : 
+```json
+  {
+    "type": "bearer",
+    "bearer": {
+        "key": "token",
+        "type": "string"
+    }
+  }
+```
+- Header :
+    - Content-Type : application/json
+- Body :
+```json 
+  {
+    "commentBody" : "string",
+    "commentAuthor" : "string"
+  }
+```
+- Response :
+```json 
+  {
+    "status" : 201,
+    "msg" : "Comment created",
+    "data" : {
+      "id" : "integer",
+      "commentBody" : "string",
+      "commentAuthor" : "string",
+      "commentAuthorPhoto" : "string",
+      "userId" : "string",
+      "locationId" : "integer",
+      "createdAt" : "date",
+      "updatedAt" : "date"
+    }
+  }
+```
+#### Get Comment ####
+- Method    : GET
+- Endpoint  : `/v1/comment/{locationId}`
+- Header :
+    - Content-Type : application/json
+- Response :
+```json 
+  {
+    "status" : 200,
+    "data" : [
+      {
+        "id" : "integer",
+        "commentBody" : "string",
+        "commentAuthor" : "string",
+        "commentAuthorPhoto" : "string",
+        "userId" : "string",
+        "locationId" : "integer",
+        "createdAt" : "date",
+        "updatedAt" : "date"
+      },
+    ],
+  }
+```
+
+
 ## Technology ##
 | Programming Language & DBMS | Framework | Tools | 
 |------------|-------------|-------------|
