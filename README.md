@@ -236,7 +236,7 @@ or
 - Body :
 ```json 
   {
-    "profile_image" : "file"
+    "image" : "file"
   }
 ```
 - Response :
@@ -267,7 +267,7 @@ or
   {
     "title" : "string",
     "description" : "string",
-    "image" : "file",
+    "photo" : "file",
     "lat" : "double",
     "lng" : "double",
   }
