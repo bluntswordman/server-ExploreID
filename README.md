@@ -99,8 +99,8 @@ or
 - Response :
 ```json 
   {
-    "msg" : "Berhasil membuat akun",
-    "status" : 201
+    "status" : 201,
+    "msg" : "Berhasil membuat akun"
   }
 ```
 #### Login ####
@@ -208,7 +208,7 @@ or
 ```json 
   {
     "username" : "string",
-    "name" : "string",
+    "name" : "string"
   }
 ```
 - Response :
@@ -269,7 +269,7 @@ or
     "description" : "string",
     "photo" : "file",
     "lat" : "double",
-    "lng" : "double",
+    "lng" : "double"
   }
 ```
 - Response :
@@ -310,14 +310,14 @@ or
 ```json 
   {
     "title" : "string",
-    "description" : "string",
+    "description" : "string"
   }
 ```
 - Response :
 ```json 
   {
     "status" : 200,
-    "msg" : "Location updated",
+    "msg" : "Location updated"
   }
 ```
 #### Get All Content ####
@@ -341,8 +341,8 @@ or
         "userId" : "string",
         "createdAt" : "date",
         "updatedAt" : "date"
-      }
-    ],
+      },
+    ]
   }
 ```
 #### Get All Content by UserId ####
@@ -366,8 +366,8 @@ or
         "userId" : "string",
         "createdAt" : "date",
         "updatedAt" : "date"
-      }
-    ],
+      },
+    ]
   }
 ```
 #### Get Content by Id ####
@@ -414,8 +414,8 @@ or
         "userId" : "string",
         "createdAt" : "date",
         "updatedAt" : "date"
-      }
-    ],
+      },
+    ]
   }
 ```
 #### Delete Content ####
@@ -500,10 +500,9 @@ or
         "createdAt" : "date",
         "updatedAt" : "date"
       },
-    ],
+    ]
   }
 ```
-
 
 ## Technology ##
 | Programming Language & DBMS | Framework | Tools | 
