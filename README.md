@@ -58,7 +58,7 @@ or
     cd server-ExploreID
   ```
   ```bash
-    in root create ".env" add :
+    in folder root create ".env" add :
     - PORT = 5000
 
     - DB_USERNAME = root 
@@ -69,7 +69,7 @@ or
     - REFRESH_TOKEN = rutirefsjf || random string
   ```
   ```bash
-    in root create folder images
+    in folder root create folder images
   ```
   ```bash
     in folder images create folder content & profile
