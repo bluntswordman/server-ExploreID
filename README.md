@@ -91,7 +91,7 @@ or
 ```json 
   {
       "username" : "string",
-      "name" : "string",
+      "nama" : "string",
       "password" : "string",
       "confirmPassword" : "string"
   }
@@ -182,7 +182,7 @@ or
     "data" : {
       "id" : "string, unique",
       "username" : "string",
-      "name" : "string",
+      "nama" : "string",
       "profile_image" : "string",
       "createdAt" : "date",
       "updatedAt" : "date"
@@ -284,7 +284,7 @@ or
       "image" : "string",
       "lat" : "double",
       "lng" : "double",
-      "name" : "string",
+      "nama" : "string",
       "userId" : "string",
       "createdAt" : "date",
       "updatedAt" : "date"
@@ -305,7 +305,7 @@ or
   }
 ```
 - Header :
-    - Content-Type : multipart/form-data
+    - Content-Type : application/json
 - Body :
 ```json 
   {
@@ -337,7 +337,7 @@ or
         "image" : "string",
         "lat" : "double",
         "lng" : "double",
-        "name" : "string",
+        "nama" : "string",
         "userId" : "string",
         "createdAt" : "date",
         "updatedAt" : "date"
@@ -362,7 +362,7 @@ or
         "image" : "string",
         "lat" : "double",
         "lng" : "double",
-        "name" : "string",
+        "nama" : "string",
         "userId" : "string",
         "createdAt" : "date",
         "updatedAt" : "date"
@@ -386,7 +386,7 @@ or
       "image" : "string",
       "lat" : "double",
       "lng" : "double",
-      "name" : "string",
+      "nama" : "string",
       "userId" : "string",
       "createdAt" : "date",
       "updatedAt" : "date"
@@ -410,7 +410,7 @@ or
         "image" : "string",
         "lat" : "double",
         "lng" : "double",
-        "name" : "string",
+        "nama" : "string",
         "userId" : "string",
         "createdAt" : "date",
         "updatedAt" : "date"
