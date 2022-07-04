@@ -521,4 +521,4 @@ or
 + <a href="https://github.com/spikebrehm/set-cookie" target="_blank" rel="noreferrer">set-cookie</a>
 
 ## Project Brief ##
-<a href="https://bit.ly/Project-Brief-CPSG-65r" target="blank" rel="noreferrer">Link</a>
+<a href="https://drive.google.com/file/d/1SreYGDRSCP_t9JGS6MLj-7WOKgDC5VUR/view" target="blank" rel="noreferrer">Link</a>
