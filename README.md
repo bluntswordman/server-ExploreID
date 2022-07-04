@@ -519,3 +519,6 @@ or
 + <a href="https://github.com/sidorares/node-mysql2" target="_blank" rel="noreferrer">mysql2</a>
 + <a href="https://github.com/sequelize/cli" target="_blank" rel="noreferrer">sequelize-cli</a>
 + <a href="https://github.com/spikebrehm/set-cookie" target="_blank" rel="noreferrer">set-cookie</a>
+
+## Project Brief ##
+<a href="https://bit.ly/Project-Brief-CPSG-65r" target="blank" rel="noreferrer">Link</a>
